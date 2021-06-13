@@ -35,4 +35,4 @@ jobs:
       run: cd tailscale/ && docker build . --file Dockerfile --tag tailscale:${{ env.docker_tag }}
       
     - name: Push tailscale container
-      run: docker push ghcr.io/${{ github.actor }}/containers:${{ env.docker_tag }}
+      run: docker push ghcr.io/${{ github.actor }}/tailscale:${{ env.docker_tag }}

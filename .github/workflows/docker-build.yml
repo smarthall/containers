@@ -7,8 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-
-  build:
+  build-ecowitt2mqtt:
 
     runs-on: ubuntu-latest
 
@@ -31,8 +30,8 @@ jobs:
         # Password or personal access token used to log against the Docker registry
         password: ${{ secrets.GHCR_TOKEN }}
     
-    - name: Build tailscale container
-      run: cd tailscale/ && docker build . --file Dockerfile --tag ghcr.io/${{ github.actor }}/tailscale:${{ env.docker_tag }}
+    - name: Build Ecowitt2MQTT Container
+      run: cd ecowitt2mqtt/ && docker build . --file Dockerfile --build-arg=BUILD_FROM=ghcr.io/home-assistant/amd64-base-python:3.9-alpine3.14 --tag ghcr.io/${{ github.actor }}/ecowitt2mqtt:${{ env.docker_tag }}
       
     - name: Push tailscale container
-      run: docker push ghcr.io/${{ github.actor }}/tailscale:${{ env.docker_tag }}
+      run: docker push ghcr.io/${{ github.actor }}/ecowitt2mqtt:${{ env.docker_tag }}

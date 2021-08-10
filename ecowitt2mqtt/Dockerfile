@@ -2,6 +2,7 @@ ARG BUILD_FROM
 FROM ${BUILD_FROM}
 
 ENV LANG C.UTF-8
+LABEL org.opencontainers.image.source = "https://github.com/smarthall/containers"
 
 # Install and build Ecowitt2MQTT
 RUN apk add --no-cache --virtual .build-dependencies \

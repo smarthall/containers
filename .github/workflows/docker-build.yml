@@ -49,7 +49,7 @@ jobs:
           BUILD_FROM=ghcr.io/home-assistant/amd64-base-python:3.9-alpine3.14
         platforms: linux/amd64
         push: true
-        tags: ghcr.io/${{ github.actor }}/ecowitt2mqtt:${{ env.docker_tag }}
+        tags: ghcr.io/${{ github.actor }}/ecowitt2mqtt:amd64-${{ env.docker_tag }}
 
     - name: Build ARMHF
       uses: docker/build-push-action@v2
@@ -61,7 +61,7 @@ jobs:
           BUILD_FROM=ghcr.io/home-assistant/armhf-base-python:3.9-alpine3.14
         platforms: linux/arm
         push: true
-        tags: ghcr.io/${{ github.actor }}/ecowitt2mqtt:${{ env.docker_tag }}
+        tags: ghcr.io/${{ github.actor }}/ecowitt2mqtt:armhf-${{ env.docker_tag }}
 
     - name: Build ARMV7
       uses: docker/build-push-action@v2
@@ -73,4 +73,23 @@ jobs:
           BUILD_FROM=ghcr.io/home-assistant/armv7-base-python:3.9-alpine3.14
         platforms: linux/armv7
         push: true
-        tags: ghcr.io/${{ github.actor }}/ecowitt2mqtt:${{ env.docker_tag }}
+        tags: ghcr.io/${{ github.actor }}/ecowitt2mqtt:armv7-${{ env.docker_tag }}
+
+    - name: Push manifest
+      run: |
+        docker manifest create ghcr.io/${{ github.actor }}/ecowitt2mqtt:${{ env.docker_tag }} \
+          ghcr.io/${{ github.actor }}/ecowitt2mqtt:amd64-${{ env.docker_tag }} \
+          ghcr.io/${{ github.actor }}/ecowitt2mqtt:armv7-${{ env.docker_tag }} \
+          ghcr.io/${{ github.actor }}/ecowitt2mqtt:armhf-${{ env.docker_tag }}
+        
+        docker manifest annotate ghcr.io/${{ github.actor }}/ecowitt2mqtt:${{ env.docker_tag }} \
+          ghcr.io/${{ github.actor }}/ecowitt2mqtt:armv7-${{ env.docker_tag }} \
+          --os linux \
+          --arch armv7
+
+        docker manifest annotate ghcr.io/${{ github.actor }}/ecowitt2mqtt:${{ env.docker_tag }} \
+          ghcr.io/${{ github.actor }}/ecowitt2mqtt:armhf-${{ env.docker_tag }} \
+          --os linux \
+          --arch armhf
+
+        docker manifest push ghcr.io/${{ github.actor }}/ecowitt2mqtt:${{ env.docker_tag }}

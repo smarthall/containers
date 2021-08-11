@@ -74,22 +74,3 @@ jobs:
         platforms: linux/armv7
         push: true
         tags: ghcr.io/${{ github.actor }}/ecowitt2mqtt:armv7-${{ env.docker_tag }}
-
-    - name: Push manifest
-      run: |
-        docker manifest create ghcr.io/${{ github.actor }}/ecowitt2mqtt:${{ env.docker_tag }} \
-          ghcr.io/${{ github.actor }}/ecowitt2mqtt:amd64-${{ env.docker_tag }} \
-          ghcr.io/${{ github.actor }}/ecowitt2mqtt:armv7-${{ env.docker_tag }} \
-          ghcr.io/${{ github.actor }}/ecowitt2mqtt:armhf-${{ env.docker_tag }}
-        
-        docker manifest annotate ghcr.io/${{ github.actor }}/ecowitt2mqtt:${{ env.docker_tag }} \
-          ghcr.io/${{ github.actor }}/ecowitt2mqtt:armv7-${{ env.docker_tag }} \
-          --os linux \
-          --arch armv7
-
-        docker manifest annotate ghcr.io/${{ github.actor }}/ecowitt2mqtt:${{ env.docker_tag }} \
-          ghcr.io/${{ github.actor }}/ecowitt2mqtt:armhf-${{ env.docker_tag }} \
-          --os linux \
-          --arch armhf
-
-        docker manifest push ghcr.io/${{ github.actor }}/ecowitt2mqtt:${{ env.docker_tag }}

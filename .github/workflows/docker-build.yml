@@ -50,3 +50,15 @@ jobs:
         platforms: linux/amd64
         push: true
         tags: ghcr.io/${{ github.actor }}/ecowitt2mqtt:${{ env.docker_tag }}
+
+    - name: Build
+      uses: docker/build-push-action@v2
+      with:
+        builder: ${{ steps.buildx.outputs.name }}
+        context: ecowitt2mqtt/
+        file: ecowitt2mqtt/Dockerfile
+        build-args: |
+          BUILD_FROM=ghcr.io/home-assistant/arm64-base-python:3.9-alpine3.14
+        platforms: linux/arm64
+        push: true
+        tags: ghcr.io/${{ github.actor }}/ecowitt2mqtt:${{ env.docker_tag }}

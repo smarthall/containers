@@ -45,7 +45,7 @@ jobs:
         builder: ${{ steps.buildx.outputs.name }}
         context: ecowitt2mqtt/
         file: ecowitt2mqtt/Dockerfile
-        build_args: |
+        build-args: |
           BUILD_FROM=ghcr.io/home-assistant/amd64-base-python:3.9-alpine3.14
         platforms: linux/amd64
         push: true

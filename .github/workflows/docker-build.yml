@@ -98,7 +98,7 @@ jobs:
         context: ecowitt2mqtt/
         file: ecowitt2mqtt/Dockerfile
         build-args: |
-          BUILD_FROM=ghcr.io/home-assistant/base-python:3.9-alpine3.14
+          BUILD_FROM=ghcr.io/home-assistant/aarch64-base-python:3.9-alpine3.14
         platforms: linux/aarch64
         push: true
         tags: |

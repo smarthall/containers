@@ -59,7 +59,9 @@ jobs:
           BUILD_FROM=ghcr.io/home-assistant/amd64-base-python:3.9-alpine3.14
         platforms: linux/amd64
         push: true
-        tags: ghcr.io/${{ github.actor }}/ecowitt2mqtt:amd64-${{ env.docker_tag }}
+        tags: |
+          ghcr.io/${{ github.actor }}/amd64-ecowitt2mqtt:${{ env.docker_tag }}
+          ${{ secrets.DOCKERHUB_USERNAME }}/amd64-ecowitt2mqtt:${{ env.docker_tag }}
 
     - name: Build ARMHF
       uses: docker/build-push-action@v2
@@ -71,7 +73,9 @@ jobs:
           BUILD_FROM=ghcr.io/home-assistant/armhf-base-python:3.9-alpine3.14
         platforms: linux/arm
         push: true
-        tags: ghcr.io/${{ github.actor }}/ecowitt2mqtt:armhf-${{ env.docker_tag }}
+        tags: |
+          ghcr.io/${{ github.actor }}/armhf-ecowitt2mqtt:${{ env.docker_tag }}
+          ${{ secrets.DOCKERHUB_USERNAME }}/armhf-ecowitt2mqtt:${{ env.docker_tag }}
 
     - name: Build ARMV7
       uses: docker/build-push-action@v2
@@ -83,7 +87,9 @@ jobs:
           BUILD_FROM=ghcr.io/home-assistant/armv7-base-python:3.9-alpine3.14
         platforms: linux/armv7
         push: true
-        tags: ghcr.io/${{ github.actor }}/ecowitt2mqtt:armv7-${{ env.docker_tag }}
+        tags: |
+          ghcr.io/${{ github.actor }}/armv7-ecowitt2mqtt:${{ env.docker_tag }}
+          ${{ secrets.DOCKERHUB_USERNAME }}/armv7-ecowitt2mqtt:${{ env.docker_tag }}
 
     - name: Build AARCH64
       uses: docker/build-push-action@v2
@@ -92,10 +98,12 @@ jobs:
         context: ecowitt2mqtt/
         file: ecowitt2mqtt/Dockerfile
         build-args: |
-          BUILD_FROM=ghcr.io/home-assistant/aarch64-base-python:3.9-alpine3.14
+          BUILD_FROM=ghcr.io/home-assistant/base-python:3.9-alpine3.14
         platforms: linux/aarch64
         push: true
-        tags: ghcr.io/${{ github.actor }}/ecowitt2mqtt:aarch64-${{ env.docker_tag }}
+        tags: |
+          ghcr.io/${{ github.actor }}/aarch64-ecowitt2mqtt:aarch64-${{ env.docker_tag }}
+          ${{ secrets.DOCKERHUB_USERNAME }}/aarch64-ecowitt2mqtt:aarch64-${{ env.docker_tag }}
 
     - name: Build i386
       uses: docker/build-push-action@v2
@@ -107,4 +115,6 @@ jobs:
           BUILD_FROM=ghcr.io/home-assistant/i386-base-python:3.9-alpine3.14
         platforms: linux/i386
         push: true
-        tags: ghcr.io/${{ github.actor }}/ecowitt2mqtt:i386-${{ env.docker_tag }}
+        tags: |
+          ghcr.io/${{ github.actor }}/i386-ecowitt2mqtt:${{ env.docker_tag }}
+          ${{ secrets.DOCKERHUB_USERNAME }}/i386-ecowitt2mqtt:${{ env.docker_tag }}
